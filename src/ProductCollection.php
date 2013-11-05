@@ -2,42 +2,33 @@
 
 class ProductCollection
 {
-    private $__collection;
-    private $__object;
+    private $_collection;
 
-    public $offset;
-    public $limit;
+    public $_offset;
+    public $_limit;
 
     public function __construct($obj)
     {
-        $this->__object = $obj;
-        $this->limit = count($obj);
-        $this->offset = 0;
+        $this->_collection = $obj;
     }
 
     public function getProducts()
     {
-        $this->__collection = array();
-
-        for ($i=$this->offset; $i<$this->limit; $i++)
-        {
-            $this->__collection[$i - $this->offset] = $this->__object[$i];
-        }
-        return $this->__collection;
+        return array_slice($this->_collection, $this->_offset, $this->_limit);
     }
 
     public function getSize()
     {
-        return $this->limit;
+        return count($this->getProducts());
     }
 
     public function limit($limit)
     {
-        $this->limit = $limit;
+        $this->_limit = $limit;
     }
 
     public function offset($offset)
     {
-        $this->offset = $offset;
+        $this->_offset = $offset;
     }
 }
