@@ -1,0 +1,23 @@
+
+.products img{
+    width: 100px;
+}
+
+.products {
+    border: 2px solid #000000;
+    list-style: none;
+    display: inline-block;
+    width: 300px;
+    margin: 10px 10px;
+    padding: 10px 10px;
+}
+
+.products div {
+    float: left;
+}
+
+.special {
+    border-bottom: 2px solid red;
+    color: #003399;
+    font-size: 20px;
+}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="/style/product.css">
+</head>
+<body>
+
+<div class="products">
+    <div>
+        <img src="<?php echo $product->getImage();?>" />
+    </div>
+    <div>
+        <span>Name: </span>
+        <h2><?php echo $product->getName() ?></h2>
+        <span>Sku: </span>
+        <span><?php echo $product->getSku() ?></span>
+        <br>
+        <span>Price: </span>
+        <span><?php echo $product->getPrice() ?></span>
+        <br>
+        <?php if ($product->isSpecialPriceApplied()): ?>
+            <span class="special">Special Price: </span>
+            <span class="special"><?php echo $product->getSpecialPrice()  ?></span>
+        <?php endif; ?>
+    </div>
+</div>
+
+</body>
+</html>
