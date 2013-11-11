@@ -7,7 +7,7 @@ if (isset($_GET["page"])) {
     $controllerName = $router->getController();
     $actionName = $router->getAction();
     $path = __DIR__ . "/../src/controllers/{$controllerName}.php";
-    if (file_exists(__DIR__ . "/../src/controllers/{$controllerName}.php")) {
+    if (file_exists($path)) {
         require_once $path;
         $controller = new $controllerName;
         if (method_exists($controller, $actionName))
