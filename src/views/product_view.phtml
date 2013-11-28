@@ -24,6 +24,30 @@
             <span class="special"><?php echo $product->getSpecialPrice()  ?></span>
         <?php endif; ?>
     </div>
+
+</div>
+<div class="reviews">
+    <h2>Reviews!</h2>
+    <h3 style="color: blue"><?php echo $reviewsAll->getAverage()?></h3>
+<?php foreach ($reviewsAll as $_review): ?>
+
+        <div class="review">
+
+            <span>Product_id: </span>
+            <h2 style="color: red"><?php echo $product->getProductId() ?></h2>
+            <span>Name: </span>
+            <h3><?php echo $_review->getName() ?></h3>
+            <span>E-mail: </span>
+            <span><?php echo $_review->getEmail() ?></span>
+            <br>
+            <span>Description: </span>
+            <span><?php echo $_review->getText() ?></span>
+            <span>Rating: </span>
+            <span><?php echo $_review->getRating() ?></span>
+        </div>
+
+    <br>
+<?php endforeach; ?>
 </div>
 
 </body>

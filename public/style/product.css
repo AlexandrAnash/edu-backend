@@ -21,3 +21,17 @@
     color: #003399;
     font-size: 20px;
 }
+
+.reviews {
+    border: 2px solid #953b39;
+    width: 310px;
+    margin: 10px 10px;
+    padding: 10px 10px;
+}
+
+.review {
+    border: 2px solid #000000;
+    list-style: none;
+    width: 300px;
+
+}

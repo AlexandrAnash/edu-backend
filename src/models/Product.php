@@ -32,5 +32,11 @@ class Product extends Entity
         return (bool) $this->getSpecialPrice();
     }
 
+    public function getProductId()
+    {
+        return $this->_getData('product_id');
+    }
+
+
 
 }

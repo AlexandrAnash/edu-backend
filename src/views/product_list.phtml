@@ -7,6 +7,7 @@
 <body>
 
     <?php foreach ($products as $_product): ?>
+    <a href="?page=product_view&id=<?php echo $_product->getProductId(); ?>">
         <div class="products">
             <div>
             <img src="<?php echo $_product->getImage(); ?>" />
@@ -26,8 +27,12 @@
             <?php endif; ?>
             </div>
         </div>
+    </a>
+
 <br>
+
     <?php endforeach; ?>
+
 
 
 </body>

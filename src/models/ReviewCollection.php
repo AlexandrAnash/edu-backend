@@ -1,14 +1,24 @@
 <?php
+
+require_once __DIR__ . '/Resource/IResourceCollection.php';
 require_once __DIR__ . '/EntityCollection.php';
-class ReviewCollection extends EntityCollection
+require_once __DIR__ . '/Review.php';
+class ReviewCollection
+    implements IteratorAggregate
 {
     private $_productFilter;
+    private $_resource;
 
-    public function getReviews()
+    public function __construct(IResourceCollection $resource)
     {
-        $reviews = $this->getEntity();
-        return $this->_applyProductFilter($reviews);
+        $this->_resource = $resource;
     }
+
+   //public function getReviews()
+   //{
+   //    $reviews = $this->getEntity();
+   //    return $this->_applyProductFilter($reviews);
+   //}
 
     public function getAverageRating()
     {
@@ -25,15 +35,32 @@ class ReviewCollection extends EntityCollection
         $this->_productFilter = $product;
     }
 
-    private function _applyProductFilter($reviews)
+    public function getAverage()
+    {
+
+            return reset($this->_resource->whereAverage('rating', 'product_id', $this->_productFilter->getProductId())[0]);
+    }
+
+    public function getReviews()
     {
         if (!$this->_productFilter)
         {
-            return $reviews;
+            return array_map(
+                function($data) {
+                    return new Review($data);
+                }, $this->_resource->fetch()
+            );
         }
-        return array_filter($reviews, function (Review $reviews)
-        {
-            return $reviews->belongsToProduct($this->_productFilter);
-        });
+        return array_map(
+            function($data) {
+                return new Review($data);
+            }, $this->_resource->whereProduct('product_id', $this->_productFilter->getProductId())
+        );
+
     }
-} 
+
+    public function getIterator()
+    {
+        return new ArrayIterator($this->getReviews());
+    }
+}
