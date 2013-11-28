@@ -14,3 +14,4 @@ if (isset($_GET["page"])) {
     $controller = new ProductController();
     $controller->listAction();
 }
+
