@@ -22,23 +22,20 @@ class ReviewCollection
 
     public function getAverageRating()
     {
-        $reviews = array_map(function(Review $review)
+        if (!$this->_productFilter)
         {
-            return $review->getRating();
-        }, $this->getReviews());
+            $temp = $this->_resource->Average('rating');
+            return $temp;
+        }
+        $this->_resource->filterBy('product_id', $this->_productFilter->getProductId());
 
-        return array_sum($reviews)/count($reviews);
+        return $this->_resource->Average('rating');
+
     }
 
     public function filterByProduct($product)
     {
         $this->_productFilter = $product;
-    }
-
-    public function getAverage()
-    {
-
-            return reset($this->_resource->whereAverage('rating', 'product_id', $this->_productFilter->getProductId())[0]);
     }
 
     public function getReviews()
@@ -51,10 +48,11 @@ class ReviewCollection
                 }, $this->_resource->fetch()
             );
         }
+        $this->_resource->filterBy('product_id', $this->_productFilter->getProductId());
         return array_map(
             function($data) {
                 return new Review($data);
-            }, $this->_resource->whereProduct('product_id', $this->_productFilter->getProductId())
+            },$this->_resource->whereProduct()
         );
 
     }

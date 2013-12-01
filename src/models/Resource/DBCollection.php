@@ -5,6 +5,8 @@ class DBCollection
 {
     private $_connection;
     private $_table;
+    private $_filterBy = [];
+    private $_bind = [];
 
     public function __construct(PDO $connection, $table)
     {
@@ -14,20 +16,70 @@ class DBCollection
 
     public function fetch()
     {
-        return $this->_connection->query("SELECT * FROM {$this->_table}")
+        $stmt = $this->_prepareSql();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        //return $this->_connection->query("SELECT * FROM {$this->_table}")
+        //    ->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function filterBy($column, $value)
+    {
+        $this->_filterBy[$column] = $value;
+    }
+
+    public function whereProduct()
+    {
+        return $this->_prepareSql()
             ->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function whereProduct($id, $value )
+    public function Average($column)
     {
-        return $this->_connection->query("SELECT * FROM {$this->_table} WHERE {$id}={$value}")
-            ->fetchAll(PDO::FETCH_ASSOC);
+        $stmt = $this->_prepareSql("AVG({$column}) as Average");
+        return $stmt->fetchColumn();
+
+        //return $this->_connection->query("SELECT AVG({$column}) FROM {$this->_table} WHERE {$id}={$value}")
+        //    ->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function whereAverage($column, $id, $value )
+
+    private function _prepareSql($columns = '*')
     {
-        return $this->_connection->query("SELECT AVG({$column}) FROM {$this->_table} WHERE {$id}={$value}")
-            ->fetchAll(PDO::FETCH_ASSOC);
+        $sql = "SELECT {$columns} FROM {$this->_table} ";
+        if ($this->_filterBy)
+        {
+            $sql .= "WHERE " . $this->_prepareFilters();
+        }
+        $stmt = $this->_connection
+            ->prepare($sql);
+        if ($this->_bind)
+        {
+            $this->_bindValues($stmt);
+        }
+        $stmt->execute();
+        return $stmt;
     }
+
+    private function _prepareFilters()
+    {
+        $conditions = [];
+        foreach ($this->_filterBy as $column => $value)
+        {
+            $parameter = ':_param_' . $column;
+            $conditions[] = $column . ' = ' . $parameter . '';
+            $this->_bind[$parameter] = $value;
+        }
+        return implode(" AND ", $conditions);
+    }
+
+    private function _bindValues(PDOStatement $stmt)
+    {
+        foreach ($this->_bind as $parameter => $value)
+        {
+            $stmt->bindValue($parameter, $value);
+        }
+    }
+
 
 }

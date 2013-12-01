@@ -52,14 +52,5 @@ class ProductTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(42, $product->getSpecialPrice());
     }
 
-    public function testSpecialPriceIsAppliedWhenValueIsSet()
-    {
-        $product = new Product(['special_price' => 123.5]);
-        $this->assertTrue($product->isSpecialPriceApplied());
 
-        $product = new Product([]);
-        $product->load($resource, 42);
-
-        $this->assertEquals('foo', $product->getName());
-    }
 }

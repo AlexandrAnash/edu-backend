@@ -23,27 +23,26 @@
             <span class="special">Special Price: </span>
             <span class="special"><?php echo $product->getSpecialPrice()  ?></span>
         <?php endif; ?>
-    </div>
+    </div>pyfxtybt
 
 </div>
 <div class="reviews">
     <h2>Reviews!</h2>
-    <h3 style="color: blue"><?php echo $reviewsAll->getAverage()?></h3>
+    <h3 id = 'valueRating'><?php echo $reviewsAll->getAverageRating()?></h3>
 <?php foreach ($reviewsAll as $_review): ?>
 
         <div class="review">
 
             <span>Product_id: </span>
-            <h2 style="color: red"><?php echo $product->getProductId() ?></h2>
-            <span>Name: </span>
+            <h2 id = 'productID'><?php echo $product->getProductId() ?></h2>
+            <span class="name">Name: </span>
             <h3><?php echo $_review->getName() ?></h3>
-            <span>E-mail: </span>
-            <span><?php echo $_review->getEmail() ?></span>
-            <br>
-            <span>Description: </span>
-            <span><?php echo $_review->getText() ?></span>
-            <span>Rating: </span>
-            <span><?php echo $_review->getRating() ?></span>
+            <span class="name">E-mail: </span>
+            <span class="value"><?php echo $_review->getEmail() ?></span>
+            <span class="name">Description: </span>
+            <span class="value"><?php echo $_review->getText() ?></span>
+            <span class="name">Rating: </span>
+            <span class="value"><?php echo $_review->getRating() ?></span>
         </div>
 
     <br>

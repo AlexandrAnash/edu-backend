@@ -35,3 +35,21 @@
     width: 300px;
 
 }
+
+.name {
+    font-size: 20px;
+    display: block;
+        margin: 10px 0px;
+}
+
+.value {
+    font-size: 18px;
+    margin-left: 10px;
+}
+#valueRating {
+    color: blue;
+}
+
+#productID {
+    color: red;
+}

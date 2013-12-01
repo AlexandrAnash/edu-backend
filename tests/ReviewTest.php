@@ -51,4 +51,3 @@ class ReviewTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals(3, $review->getRating());
     }
 }
- 

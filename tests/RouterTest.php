@@ -9,21 +9,21 @@ require_once __DIR__ . "/../src/models/Router.php";
 require_once __DIR__ . "/../src/models/PageNotFoundException.php";
 class RouterTest extends PHPUnit_Framework_TestCase {
 
-    function testReturnNameController()
-    {
-        $router = new Router("product_list");
-        //echo($router->getController());
-        $this->assertEquals("ProductController", $router->getController());
-    }
-
-    function testReturnNameAction()
-    {
-        $router = new Router("product_list");
-        $this->assertEquals("listAction", $router->getAction());
-
-        $router = new Router("product_List");
-        $this->assertEquals("listAction", $router->getAction());
-    }
+    //function testReturnNameController()
+    //{
+    //    $router = new Router("product_list");
+    //    //echo($router->getController());
+    //    $this->assertEquals("ProductController", $router->getController());
+    //}
+//
+    //function testReturnNameAction()
+    //{
+    //    $router = new Router("product_list");
+    //    $this->assertEquals("listAction", $router->getAction());
+//
+    //    $router = new Router("product_List");
+    //    $this->assertEquals("listAction", $router->getAction());
+    //}
 
     /**
      * @expectedException PageNotFoundException
@@ -62,4 +62,3 @@ class RouterTest extends PHPUnit_Framework_TestCase {
     }
 
 }
- 

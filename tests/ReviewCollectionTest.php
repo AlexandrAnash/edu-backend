@@ -27,6 +27,27 @@ class ReviewCollectionTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals('aleksandr', $review[0]->getName());
     }
 
+   //public function testTakesDataFromResourceReviewByFilter()
+   //{
+   //    $product = new Product(['product_id' => 1]);
+   //    $resource = $this->getMock('IResourceCollection');
+   //    $resource->expects($this->any())
+   //        ->method('whereProduct')
+   //        ->will($this->returnValue(
+   //            [
+   //                ['id' => 1, 'name' => 'aleksandr'],
+   //                ['id' => 2, 'name' => 'foo'],
+   //                ['id' => 3, 'name' => 'bar']
+   //            ]
+   //        ));
+//
+   //    $collection = new ReviewCollection($resource);
+   //    $collection->filterByProduct($product);
+   //    $review = $collection->getReviews();
+   //    //var_dump($review);
+   //    $this->assertEquals([['id' => 1, 'name' => 'aleksandr']], $review);
+   //}
+
     public function testInIterableWithForeachFunctionReviews()
     {
         $resource = $this->getMock('IResourceCollection');
@@ -47,29 +68,52 @@ class ReviewCollectionTest extends PHPUnit_Framework_TestCase {
 
     }
 
-    public function testFilterByProduct()
+    public function testLoadsDataFromResource()
     {
-        $productNokla = new Product(['name' => 'Nokla']);
-        $productMotorobla = new Product(['name' => 'Motorobla']);
+        $resource = $this->getMock('IResourceEntity');
+        $resource->expects($this->any())
+            ->method('find')
+            ->with($this->equalTo(42))
+            ->will($this->returnValue(['name' => 'Vasia']));
 
-        $resourceReview = $this->getMock('IResourceCollection');
-        $resourceReview->expects($this->any())
-            ->method('fetch')
-            ->will($this->returnValue(
-                [
-                    ['product' => $productMotorobla],
-                    ['product' => $productNokla],
-                    ['product' => $productNokla],
-                    ['product' => $productNokla]
-                ]
-            ));
-        $collectionReview = new ReviewCollection($resourceReview);
-        $collectionReview->filterByProduct($productMotorobla);
-        //print_r([new Review(['product' => $productMotorobla])]);
-        //print_r($collectionReview->getReviews());
-        $this->assertEquals([new Review(['product' => $productMotorobla])], $collectionReview->getReviews());
+        $review = new Review([]);
+        $review->load($resource, 42);
+
+        $this->assertEquals('Vasia', $review->getName());
     }
 
+    /**
+     * @dataProvider getProductIds
+     */
+    public function testFiltersCollectionByProduct($productId)
+    {
+        $product = new Product(['product_id' => $productId]);
+        $resource = $this->getMock('IResourceCollection');
+        $resource->expects($this->any())
+            ->method('filterBy')
+            ->with($this->equalTo('product_id'), $this->equalTo($productId));
+//
+        $collection = new ReviewCollection($resource);
+//
+        $collection->filterByProduct($product);
+    }
+//
+    public function getProductIds()
+    {
+        return [[1], [2]];
+    }
+
+    public function testCalcAverageRation()
+    {
+        $resource = $this->getMock('IResourceCollection');
+        $resource->expects($this->any())
+            ->method('Average')
+            ->with($this->equalTo('rating'));
+
+        $collection = new ReviewCollection($resource);
+
+        $collection->getAverageRating();
+    }
 
 }
  
