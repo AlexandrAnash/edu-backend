@@ -14,12 +14,6 @@ class ReviewCollection
         $this->_resource = $resource;
     }
 
-   //public function getReviews()
-   //{
-   //    $reviews = $this->getEntity();
-   //    return $this->_applyProductFilter($reviews);
-   //}
-
     public function getAverageRating()
     {
         if (!$this->_productFilter)

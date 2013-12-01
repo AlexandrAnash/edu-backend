@@ -7,11 +7,22 @@ require_once __DIR__ . '/../models/Resource/DBEntity.php';
 
 class ProductController
 {
+    private $_conn;
+
+    public function __construct()
+    {
+        try {
+            $this->_conn = new PDO('mysql:host=localhost;dbname=shop', 'root', '123');
+            $this->_conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        } catch (PDOException $e) {
+            echo 'ERROR: ' . $e->getMessage();
+        }
+    }
+
     public function listAction()
     {
 
-        $connection = new PDO('mysql:host=localhost;dbname=shop', 'root', '123');
-        $resourceProduct = new DBCollection($connection, 'products');
+        $resourceProduct = new DBCollection($this->_conn, 'products');
         $products = new ProductCollection($resourceProduct);
 
         require_once __DIR__ . "/../views/product_list.phtml";
@@ -21,14 +32,10 @@ class ProductController
     {
         $product = new Product([]);
 
-        $connection = new PDO('mysql:host=localhost;dbname=shop', 'root', '123');
-        $resource = new DBEntity($connection, 'products', 'product_id');
+        $resource = new DBEntity($this->_conn, 'products', 'product_id');
         $product->load($resource, $_GET['id']);
 
-        //$resource = new DBEntity($connection, 'review', 'product_id');
-        //$product->load($resource, $_GET['id']);
-
-        $resourceReview = new DBCollection($connection, 'reviews');
+        $resourceReview = new DBCollection($this->_conn, 'reviews');
         $reviewsAll = new ReviewCollection($resourceReview);
         $reviewsAll->filterByProduct($product);
 

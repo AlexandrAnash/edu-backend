@@ -18,9 +18,6 @@ class DBCollection
     {
         $stmt = $this->_prepareSql();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        //return $this->_connection->query("SELECT * FROM {$this->_table}")
-        //    ->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function filterBy($column, $value)
@@ -38,9 +35,6 @@ class DBCollection
     {
         $stmt = $this->_prepareSql("AVG({$column}) as Average");
         return $stmt->fetchColumn();
-
-        //return $this->_connection->query("SELECT AVG({$column}) FROM {$this->_table} WHERE {$id}={$value}")
-        //    ->fetchAll(PDO::FETCH_ASSOC);
     }
 
 
