@@ -1,9 +1,13 @@
 <?php
-require_once __DIR__ . '/../models/Product.php';
-require_once __DIR__ . '/../models/ProductCollection.php';
-require_once __DIR__ . '/../models/ReviewCollection.php';
-require_once __DIR__ . '/../models/Resource/DBCollection.php';
-require_once __DIR__ . '/../models/Resource/DBEntity.php';
+namespace App\Controller;
+
+use App\Model\Resource\DBCollection;
+use App\Model\Resource\DBEntity;
+use App\Model\ProductCollection;
+use App\Model\Product;
+use App\Model\Resource\Table\Review as ReviewTable;
+use App\Model\ReviewCollection;
+use App\Model\Resource\Table\Product as ProductTable;
 
 class ProductController
 {
@@ -12,9 +16,9 @@ class ProductController
     public function __construct()
     {
         try {
-            $this->_conn = new PDO('mysql:host=localhost;dbname=shop', 'root', '123');
-            $this->_conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        } catch (PDOException $e) {
+            $this->_conn = new \PDO('mysql:host=localhost;dbname=shop', 'root', '123');
+            $this->_conn->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+        } catch (\PDOException $e) {
             echo 'ERROR: ' . $e->getMessage();
         }
     }
@@ -22,7 +26,7 @@ class ProductController
     public function listAction()
     {
 
-        $resourceProduct = new DBCollection($this->_conn, 'products');
+        $resourceProduct = new DBCollection($this->_conn, new ProductTable);
         $products = new ProductCollection($resourceProduct);
 
         require_once __DIR__ . "/../views/product_list.phtml";
@@ -32,10 +36,10 @@ class ProductController
     {
         $product = new Product([]);
 
-        $resource = new DBEntity($this->_conn, 'products', 'product_id');
+        $resource = new DBEntity($this->_conn, new ProductTable);
         $product->load($resource, $_GET['id']);
 
-        $resourceReview = new DBCollection($this->_conn, 'reviews');
+        $resourceReview = new DBCollection($this->_conn, new ReviewTable);
         $reviewsAll = new ReviewCollection($resourceReview);
         $reviewsAll->filterByProduct($product);
 

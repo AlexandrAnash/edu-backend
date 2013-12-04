@@ -1,5 +1,6 @@
 <?php
-require_once __DIR__ . '/Entity.php';
+namespace App\Model;
+
 class Product extends Entity
 {
     public function getSku()

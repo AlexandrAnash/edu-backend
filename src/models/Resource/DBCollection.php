@@ -1,5 +1,6 @@
 <?php
-require_once __DIR__ . '/IResourceCollection.php';
+namespace App\Model\Resource;
+
 class DBCollection
     implements IResourceCollection
 {
@@ -8,7 +9,7 @@ class DBCollection
     private $_filterBy = [];
     private $_bind = [];
 
-    public function __construct(PDO $connection, $table)
+    public function __construct(\PDO $connection, Table\IProductReview $table)
     {
         $this->_connection = $connection;
         $this->_table = $table;
@@ -17,7 +18,7 @@ class DBCollection
     public function fetch()
     {
         $stmt = $this->_prepareSql();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     public function filterBy($column, $value)
@@ -28,7 +29,7 @@ class DBCollection
     public function whereProduct()
     {
         return $this->_prepareSql()
-            ->fetchAll(PDO::FETCH_ASSOC);
+            ->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     public function Average($column)
@@ -40,7 +41,7 @@ class DBCollection
 
     private function _prepareSql($columns = '*')
     {
-        $sql = "SELECT {$columns} FROM {$this->_table} ";
+        $sql = "SELECT {$columns} FROM {$this->_table->getName()} ";
         if ($this->_filterBy)
         {
             $sql .= "WHERE " . $this->_prepareFilters();
@@ -67,7 +68,7 @@ class DBCollection
         return implode(" AND ", $conditions);
     }
 
-    private function _bindValues(PDOStatement $stmt)
+    private function _bindValues(\PDOStatement $stmt)
     {
         foreach ($this->_bind as $parameter => $value)
         {

@@ -1,8 +1,8 @@
 <?php
-require_once __DIR__ . '/../src/models/Product.php';
-require_once __DIR__ . '/../src/models/Resource/IResourceEntity.php';
+namespace Test\Model;
 
-class ProductTest extends PHPUnit_Framework_TestCase
+use \App\Model\Product;
+class ProductTest extends \PHPUnit_Framework_TestCase
 {
    public  function testReturnsIdWhichHasBeenInitialized()
    {

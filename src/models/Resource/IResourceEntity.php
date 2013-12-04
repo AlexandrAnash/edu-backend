@@ -1,4 +1,5 @@
 <?php
+namespace App\Model\Resource;
 
 interface IResourceEntity
 {

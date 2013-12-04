@@ -1,13 +1,10 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Admin
- * Date: 10.11.13
- * Time: 13:58
- */
-require_once __DIR__ . "/../src/models/Router.php";
-require_once __DIR__ . "/../src/models/PageNotFoundException.php";
-class RouterTest extends PHPUnit_Framework_TestCase {
+namespace Test\Model;
+
+use App\Model\Router;
+//use App\Model\PageNotFoundException;
+
+class RouterTest extends \PHPUnit_Framework_TestCase {
 
     //function testReturnNameController()
     //{
@@ -26,7 +23,7 @@ class RouterTest extends PHPUnit_Framework_TestCase {
     //}
 
     /**
-     * @expectedException PageNotFoundException
+     * @expectedException App\Model\PageNotFoundException
      * @expectedExceptionMessage In the address bar should be the character '_'.
      */
     function testReturnsPageNotFoundAddressBarNoCharacter()
@@ -35,30 +32,30 @@ class RouterTest extends PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @expectedException PageNotFoundException
+     * @expectedException App\Model\PageNotFoundException
      * @expectedExceptionMessage In the address bar many the character '_'.
      */
     function testReturnsPageNotFoundAddressBarManyCharacter()
     {
         new Router('Product_List_list');
     }
-
-    /**
-     * @expectedException PageNotFoundException
-     * @expectedExceptionMessage The wrong address!
-     */
-    function testReturnsPageNotFoundNameController()
-    {
-        new Router('Groduct_list');
-    }
-
-    /**
-     * @expectedException PageNotFoundException
-     * @expectedExceptionMessage The wrong address!
-     */
-    function testReturnsPageNotFoundNameAction()
-    {
-        new Router('product_Mist');
-    }
+//
+    ///**
+    // * @expectedException App\Model\PageNotFoundException
+    // * @expectedExceptionMessage Class or method are not exist
+    // */
+    //function testReturnsPageNotFoundNameController()
+    //{
+    //    new Router("Groduct_list");
+    //}
+//
+    ///**
+    // * @expectedException App\Model\PageNotFoundException
+    // * @expectedExceptionMessage Class or method are not exist
+    // */
+    //function testReturnsPageNotFoundNameAction()
+    //{
+    //    new Router('product_Mist');
+    //}
 
 }

@@ -1,5 +1,6 @@
 <?php
-require_once __DIR__ . '/Entity.php';
+namespace App\Model;
+
 class Review extends Entity
 {
     public function getName()

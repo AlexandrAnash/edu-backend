@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Admin
- * Date: 08.11.13
- * Time: 15:39
- */
+namespace App\Model;
 
 class Entity {
 
@@ -21,7 +16,7 @@ class Entity {
     }
 
 
-    public function load(IResourceEntity $resource, $id)
+    public function load(Resource\IResourceEntity $resource, $id)
     {
         $this->_data = $resource->find($id);
     }

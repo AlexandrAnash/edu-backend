@@ -1,12 +1,9 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Admin
- * Date: 08.11.13
- * Time: 22:05
- */
-require_once __DIR__ . '/../src/models/Review.php';
-class ReviewTest extends PHPUnit_Framework_TestCase {
+namespace Test\Model;
+use \App\Model\Review;
+use \App\Model\Product;
+
+class ReviewTest extends \PHPUnit_Framework_TestCase {
     public function testReturnsBelongsToProduct()
     {
         $review = new Review(['product' => new Product(['sku'=>'123456'])]);
