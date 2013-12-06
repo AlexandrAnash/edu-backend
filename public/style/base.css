@@ -53,3 +53,8 @@
 #productID {
     color: red;
 }
+
+.login {
+    float: right;
+    font-size: 0.8em;
+}

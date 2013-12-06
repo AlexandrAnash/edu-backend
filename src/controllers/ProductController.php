@@ -28,8 +28,8 @@ class ProductController
 
         $resourceProduct = new DBCollection($this->_conn, new ProductTable);
         $products = new ProductCollection($resourceProduct);
-
-        require_once __DIR__ . "/../views/product_list.phtml";
+        $view = 'product_list';
+        require_once __DIR__ . "/../views/layout/base.phtml";
     }
 
     public function viewAction()
@@ -43,7 +43,8 @@ class ProductController
         $reviewsAll = new ReviewCollection($resourceReview);
         $reviewsAll->filterByProduct($product);
 
-        require_once __DIR__ . "/../views/product_view.phtml";
+        $view = 'product_view';
+        require_once __DIR__ . "/../views/layout/base.phtml";
     }
 
 }
