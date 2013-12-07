@@ -38,7 +38,6 @@ class DBCollection
         return $stmt->fetchColumn();
     }
 
-
     private function _prepareSql($columns = '*')
     {
         $sql = "SELECT {$columns} FROM {$this->_table->getName()} ";
@@ -48,6 +47,7 @@ class DBCollection
         }
         $stmt = $this->_connection
             ->prepare($sql);
+
         if ($this->_bind)
         {
             $this->_bindValues($stmt);
@@ -75,6 +75,7 @@ class DBCollection
             $stmt->bindValue($parameter, $value);
         }
     }
+
 
 
 }

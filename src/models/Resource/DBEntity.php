@@ -34,6 +34,7 @@ class DBEntity
         return $this->_connection->lastInsertId($this->_table->getPrimaryKey());
     }
 
+
     public function _prepareBind($fields)
     {
         return array_map(function ($field) {
@@ -77,5 +78,6 @@ class DBEntity
 
         return $stmt;
     }
+
 
 }

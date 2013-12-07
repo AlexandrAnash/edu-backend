@@ -1,4 +1,3 @@
-
 .products img{
     width: 100px;
 }
@@ -55,6 +54,11 @@
 }
 
 .login {
+
     float: right;
     font-size: 0.8em;
+}
+
+.login_register {
+    text-align: center;
 }
