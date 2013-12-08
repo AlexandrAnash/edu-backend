@@ -45,7 +45,7 @@ class ReviewCollection
         return array_map(
             function($data) {
                 return new Review($data);
-            },$this->_resource->whereProduct()
+            },$this->_resource->fetch()
         );
 
     }

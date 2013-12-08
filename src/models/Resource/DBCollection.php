@@ -26,7 +26,7 @@ class DBCollection
         $this->_filterBy[$column] = $value;
     }
 
-    public function whereProduct()
+    public function where()
     {
         return $this->_prepareSql()
             ->fetchAll(\PDO::FETCH_ASSOC);

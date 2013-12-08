@@ -37,10 +37,8 @@ class CustomerController
                 $session->login($customer->getId());
                 $session->getName($customer->getName());
                 $session->getRating($customer->getRating());
-                //$session->getCustomers($customer);
 
-                $cont = new ProductController();
-                $cont->listAction();
+                header("Location: /?page=product_list");
             } else
             {
                 $view = 'customer_login';
@@ -57,14 +55,14 @@ class CustomerController
         $session = new Session();
         $session->logout();
 
-        $cont = new ProductController();
-        $cont->listAction();
+        header("Location: /?page=product_list");
     }
 
     public function registerAction()
     {
         if (isset($_POST['customer'])) {
             $this->_registerCustomer();
+            header("Location: /?page=product_list");
         } else {
             $view = 'customer_register';
             require_once __DIR__ . "/../views/layout/base.phtml";

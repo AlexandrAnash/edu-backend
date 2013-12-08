@@ -17,7 +17,9 @@ class DBEntity
 
     public function find($id)
     {
-        $stmt = $this->_connection->prepare("SELECT * FROM {$this->_table->getName()} WHERE {$this->_table->getPrimaryKey()} = :id");
+        $stmt = $this->_connection->prepare(
+            "SELECT * FROM {$this->_table->getName()} WHERE {$this->_table->getPrimaryKey()} = :id"
+        );
         $stmt->execute([':id' => $id]);
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
@@ -34,6 +36,13 @@ class DBEntity
         return $this->_connection->lastInsertId($this->_table->getPrimaryKey());
     }
 
+    public function remove($id)
+    {
+        $stmt = $this->_connection->prepare(
+            "DELETE FROM {$this->_table->getName()} WHERE {$this->_table->getPrimaryKey()} = :id"
+        );
+        $stmt->execute([':id' => $id]);
+    }
 
     public function _prepareBind($fields)
     {
@@ -66,7 +75,6 @@ class DBEntity
 
         return $stmt;
     }
-
     private function _insertItem($fields)
     {
         $fieldsList = implode(',', $fields);

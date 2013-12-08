@@ -10,13 +10,16 @@
 <?php endif; ?>
 <?php if(!isset($_SESSION["userId"])): ?>
     <div class="login">
+        <a href="?page=cart_list">curt</a> |
         <a href="?page=customer_login">Login</a> |
         <a href="?page=customer_register">Sign Up</a>
     </div>
     <h3>Hello, please log in! </h3>
 <?php else: ?>
     <div class="login">
-        <a href="?page=customer_logout">Logout</a> |
+        <a href="?page=cart_list">curt</a> |
+        <a href="?page=customer_logout">Logout</a>
+
     </div>
     <h3>Good!!! Hello <?php echo($_SESSION["userName"]) ?> </h3>
 <?php endif; ?>

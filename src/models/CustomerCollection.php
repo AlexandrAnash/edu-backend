@@ -34,6 +34,6 @@ class CustomerCollection
 
     public function getIterator()
     {
-        return new \ArrayIterator($this->getCustomer());
+        return new \ArrayIterator($this->getCustomers());
     }
 }

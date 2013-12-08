@@ -15,9 +15,13 @@
             <span class="special">Special Price: </span>
             <span class="special"><?php echo $product->getSpecialPrice()  ?></span>
         <?php endif; ?>
-    </div>pyfxtybt
+    </div>
+
 
 </div>
+<form action="?page=cart_add" method="POST">
+    <input type="submit" id = "<?php echo $product->getProductId();?>" value="Add cart" />
+</form>
 <div class="reviews">
     <h2>Reviews!</h2>
     <h3 id = 'valueRating'><?php echo $reviewsAll->getAverageRating()?></h3>

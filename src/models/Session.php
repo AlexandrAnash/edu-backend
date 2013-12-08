@@ -7,7 +7,13 @@ class Session {
 
     public function __construct()
     {
-        session_start();
+        if(!isset($_SESSION)){
+            session_start();
+        }
+    }
+
+    public function getSessionUser(){
+       return isset($_SESSION['userId']) ? $_SESSION['userId'] : session_id();
     }
 
     public function login ($userId)
