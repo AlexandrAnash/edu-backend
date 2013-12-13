@@ -20,7 +20,7 @@
 
 </div>
 <form action="?page=cart_add" method="POST">
-    <input type="submit" id = "<?php echo $product->getProductId();?>" value="Add cart" />
+    <input type="submit" id = "<?php echo $product->getId();?>" value="Add cart" />
 </form>
 <div class="reviews">
     <h2>Reviews!</h2>
@@ -30,7 +30,7 @@
         <div class="review">
 
             <span>Product_id: </span>
-            <h2 id = 'productID'><?php echo $product->getProductId() ?></h2>
+            <h2 id = 'productID'><?php echo $product->getId() ?></h2>
             <span class="name">Name: </span>
             <h3><?php echo $_review->getName() ?></h3>
             <span class="name">E-mail: </span>

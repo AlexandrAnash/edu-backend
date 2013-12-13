@@ -12,29 +12,40 @@ class Session {
         }
     }
 
-    public function getSessionUser(){
-       return isset($_SESSION['userId']) ? $_SESSION['userId'] : session_id();
-    }
+//    public function login ($userId)
+//    {
+//        $_SESSION['userId'] = $userId;
+//    }
+//
+//    public function logout()
+//    {
+//        unset($_SESSION['userId']);
+//    }
+//
+//    public function getName($userName)
+//    {
+//        $_SESSION['userName'] = $userName;
+//    }
 
-    public function login ($userId)
+    public function isLoggedIn()
     {
-        $_SESSION['userId'] = $userId;
+        return isset($_SESSION['customerId']) ? true : false;
     }
 
-    public function logout()
+    //public function getRating($userRating)
+    //{
+    //    $_SESSION['userRating'] = $userRating;
+    //}
+
+    public function getCustomer()
     {
-        unset($_SESSION['userId']);
+        return $_SESSION['customerId'];
     }
 
-    public function getName($userName)
+    public function getSessionId()
     {
-        $_SESSION['userName'] = $userName;
-    }
-
-    public function getRating($userRating)
-    {
-        $_SESSION['userRating'] = $userRating;
+        return session_id();
     }
 
 
-} 
+}

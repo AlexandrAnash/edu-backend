@@ -2,7 +2,7 @@
 namespace App\Model;
 use App\Model\Resource\IResourceEntity;
 
-class Cart extends Entity
+class QuoteItem extends Entity
 {
     public function save(IResourceEntity $resource)
     {

@@ -7,10 +7,10 @@ class ProductTest extends \PHPUnit_Framework_TestCase
    public  function testReturnsIdWhichHasBeenInitialized()
    {
        $product = new Product(['product_id'=>1]);
-       $this -> assertEquals(1, $product->getProductId());
+       $this -> assertEquals(1, $product->getId());
 
        $product = new Product(['product_id' => 2]);
-       $this->assertEquals(2, $product->getProductId());
+       $this->assertEquals(2, $product->getId());
    }
 
     public function testLoadsDataFromResource()

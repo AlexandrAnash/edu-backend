@@ -1,5 +1,5 @@
     <?php foreach ($products as $_product): ?>
-    <a href="?page=product_view&id=<?php echo $_product->getProductId(); ?>">
+    <a href="?page=product_view&id=<?php echo $_product->getId(); ?>">
         <div class="products">
             <div>
             <img src="<?php echo $_product->getImage(); ?>" />
@@ -23,7 +23,7 @@
         <form action="?page=cart_add" method="POST">
             <label for="count">count: </label>
             <input type="text" name="cart[count]" >
-            <input type="text" name="cart[product_id]" value="<?php echo $_product->getProductId()?>" hidden>
+            <input type="text" name="cart[product_id]" value="<?php echo $_product->getId()?>" hidden>
             <input type="submit"  value="Add cart" />
         </form>
 
