@@ -71,7 +71,7 @@ class DBEntityTest extends \PHPUnit_Extensions_Database_TestCase
 
     private function _getResource()
     {
-        $table = $this->getMock('\App\Model\Resource\Table\IProductReview');
+        $table = $this->getMock('\App\Model\Resource\Table\ITable');
         $table->expects($this->any())->method('getName')
             ->will($this->returnValue('abstract_collection'));
         $table->expects($this->any())->method('getPrimaryKey')

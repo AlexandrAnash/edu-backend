@@ -1,0 +1,24 @@
+<h2>Order</h2>
+<form action="/?page=checkout_order" method="post">
+
+    <div class="order">
+        <label>Total price of the products: </label>
+        <?php echo $this->get('subtotal') ?>
+        <label>$</label>
+    </div>
+
+    <div class="order">
+        <label>Total price of the shipping: </label>
+        <?php echo $this->get('shipping') ?>
+        <label>$</label>
+    </div>
+
+    <div class="order">
+        <label>Total price: </label>
+        <?php echo $this->get('grand_total') ?>
+        <label>$</label>
+    </div>
+
+
+    <div><input type="submit" value="All right!"></div>
+</form>

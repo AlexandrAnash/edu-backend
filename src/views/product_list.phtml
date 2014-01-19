@@ -1,34 +1,41 @@
-    <?php foreach ($products as $_product): ?>
+<?php for ($page = 1; $page <= $this->get('pages')->pageCount; $page++): ?>
+    <a href="/?p=<?php echo $page; ?>"><?php echo $page; ?></a>
+<?php endfor; ?>
+<br>
+
+<?php foreach ($this->get('products') as $_product): ?>
+
     <a href="?page=product_view&id=<?php echo $_product->getId(); ?>">
         <div class="products">
             <div>
-            <img src="<?php echo $_product->getImage(); ?>" />
+                <img src="<?php echo $_product->getImage(); ?>"/>
             </div>
             <div>
-            <span>Name: </span>
-            <h2><?php echo $_product->getName() ?></h2>
-            <span>Sku: </span>
-            <span><?php echo $_product->getSku() ?></span>
-            <br>
-            <span>Price: </span>
-            <span><?php echo $_product->getPrice() ?></span>
-            <br>
-            <?php if ($_product->isSpecialPriceApplied()): ?>
-                <span class="special">Special Price: </span>
-                <span class="special"><?php echo $_product->getSpecialPrice()  ?></span>
-            <?php endif; ?>
+                <span>Name: </span>
+
+                <h2><?php echo $_product->getName() ?></h2>
+                <span>Sku: </span>
+                <span><?php echo $_product->getSku() ?></span>
+                <br>
+                <span>Price: </span>
+                <span><?php echo $_product->getPrice() ?></span>
+                <br>
+                <?php if ($_product->isSpecialPriceApplied()): ?>
+                    <span class="special">Special Price: </span>
+                    <span class="special"><?php echo $_product->getSpecialPrice() ?></span>
+                <?php endif; ?>
             </div>
         </div>
     </a>
-        <form action="?page=cart_add" method="POST">
-            <label for="count">count: </label>
-            <input type="text" name="cart[count]" >
-            <input type="text" name="cart[product_id]" value="<?php echo $_product->getId()?>" hidden>
-            <input type="submit"  value="Add cart" />
-        </form>
+    <form action="?page=quote_add" method="POST">
+        <label for="count">count: </label>
+        <input type="text" name="quote[count]">
+        <input type="text" name="quote[product_id]" value="<?php echo $_product->getId() ?>" hidden>
+        <input type="submit" value="Add quote"/>
+    </form>
 
-<br>
+    <br>
 
-    <?php endforeach; ?>
+<?php endforeach; ?>
 
 

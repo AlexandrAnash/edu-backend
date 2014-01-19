@@ -48,6 +48,64 @@ class DBCollectionTest
         $this->assertEquals($expected[$values], $collection->Average($column));
     }
 
+    /**
+    * @dataProvider getLimitAmounts
+    */
+    public function testLimitItemBySpecifiedAmount($limit)
+    {
+        $expected = [
+            1 => [['id' => 1, 'data' => 'foo']],
+            2 => [['id' => 1, 'data' => 'foo'], ['id' => 2, 'data' => 'bar']]
+        ];
+        $collection = $this->_getCollection();
+        $collection->limit($limit);
+        //var_dump($collection->fetch());
+        $this->assertEquals($expected[$limit], $collection->fetch());
+    }
+
+    /**
+     * @dataProvider getOffsetAmounts
+     */
+    public function testOffsetItemBySpecifiedAmount($offset)
+    {
+        $expected = [
+            1 => [['id' => 2, 'data' => 'bar'], ['id' => 3, 'data' => 'baz']],
+            2 => [['id' => 3, 'data' => 'baz']]
+
+        ];
+        $collection = $this->_getCollection();
+        $collection->limit(100, $offset);
+        //var_dump($collection->fetch());
+        $this->assertEquals($expected[$offset], $collection->fetch());
+    }
+
+    public function testCalculatesItemCount()
+    {
+        $collection = $this->_getCollection();
+        $collection->limit(0);
+        $collection->filterBy('data', 'foo');
+
+        $this->assertEquals(3, $collection->count());
+    }
+
+    public function getLimitAmounts()
+    {
+        return
+        [
+            [1],
+            [2]
+        ];
+    }
+
+    public function getOffsetAmounts()
+    {
+        return
+            [
+                [1],
+                [2]
+            ];
+    }
+
     public function getColumns()
     {
         return [['id', 1], ['data', 2]];
@@ -69,7 +127,7 @@ class DBCollectionTest
 
     private function _getCollection()
     {
-        $table = $this->getMock('\App\Model\Resource\Table\IProductReview');
+        $table = $this->getMock('\App\Model\Resource\Table\ITable');
         $table->expects($this->any())->method('getName')
             ->will($this->returnValue('abstract_collection'));
         $collection = new DBCollection($this->getConnection()->getConnection(), $table);

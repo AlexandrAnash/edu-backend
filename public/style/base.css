@@ -62,3 +62,14 @@
 .login_register {
     text-align: center;
 }
+a {
+    text-decoration: none;
+}
+
+.tableOrders {
+    text-align: left;
+
+}
+.tableOrders th, td {
+    padding-right: 30px;
+}

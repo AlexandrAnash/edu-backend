@@ -1,0 +1,11 @@
+<h2>Shipping!</h2>
+<form action="/?page=checkout_shipping" method="post">
+
+        <?php foreach($this->get('methods') as $method): ?>
+    <div class="method_shipping">
+            <label><input type="radio" name="method" value="<?php echo $method['code'] ?>"><?php echo $method['price'] ?>$ (<?php echo $method['label'] ?>)</label>
+    </div>
+        <?php endforeach; ?>
+
+    <div><input type="submit" value="Next"></div>
+</form>

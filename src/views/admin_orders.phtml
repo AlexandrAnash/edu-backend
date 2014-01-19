@@ -1,0 +1,35 @@
+<a class="page-back" href="/">&larr;</a>
+
+<div class="orders" >
+    <h1 class="page-header">
+        Orders!
+    </h1>
+    <table class="tableOrders">
+        <tr>
+            <form action="?page=admin_orders" method="POST">
+                <select name="filter[key]">
+                    <option value="number_order">Number order</option>
+                    <option value="created_at">Date</option>
+                    <option value="grand_total">Grand total</option>
+                    <option value="status">Status</option>
+                </select>
+                <input type="search" name="filter[value]" placeholder="input filter" >
+                <input type="submit" value="Filter" >
+            </form>
+        </tr>
+        <tr>
+            <th>Number order</th>
+            <th>Date</th>
+            <th>Grand total</th>
+            <th>Status</th>
+        </tr>
+        <?php foreach($this->get('orders') as $order): ?>
+        <tr>
+            <td><?php echo $order['number_order'] ?></td>
+            <td><?php echo $order['created_at'] ?></td>
+            <td><?php echo $order['grand_total'] ?></td>
+            <td><?php echo $order['status'] ?></td>
+        </tr>
+        <?php endforeach; ?>
+    </table>
+</div>

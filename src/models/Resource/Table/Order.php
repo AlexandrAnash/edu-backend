@@ -1,14 +1,14 @@
 <?php
 namespace App\Model\Resource\Table;
-class Cart implements IProductReview
+class Order implements ITable
 {
     public function getName()
     {
-        return 'cart';
+        return 'orders';
     }
 
     public function getPrimaryKey()
     {
-        return 'cart_id';
+        return 'order_id';
     }
 }

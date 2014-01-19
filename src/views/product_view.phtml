@@ -1,36 +1,41 @@
 <div class="products">
     <div>
-        <img src="<?php echo $product->getImage();?>" />
+        <img src="<?php echo $this->get('product')->getImage();?>" />
     </div>
     <div>
         <span>Name: </span>
-        <h2><?php echo $product->getName() ?></h2>
+        <h2><?php echo $this->get('product')->getName() ?></h2>
         <span>Sku: </span>
-        <span><?php echo $product->getSku() ?></span>
+        <span><?php echo $this->get('product')->getSku() ?></span>
         <br>
         <span>Price: </span>
-        <span><?php echo $product->getPrice() ?></span>
+        <span><?php echo $this->get('product')->getPrice() ?></span>
         <br>
-        <?php if ($product->isSpecialPriceApplied()): ?>
+        <?php if ($this->get('product')->isSpecialPriceApplied()): ?>
             <span class="special">Special Price: </span>
-            <span class="special"><?php echo $product->getSpecialPrice()  ?></span>
+            <span class="special"><?php echo $this->get('product')->getSpecialPrice()  ?></span>
         <?php endif; ?>
     </div>
 
 
 </div>
-<form action="?page=cart_add" method="POST">
-    <input type="submit" id = "<?php echo $product->getId();?>" value="Add cart" />
+<form action="?page=quote_add" method="POST">
+    <input type="text" name="quote[product_id]" value="<?php echo $this->get('product')->getId();?>" hidden>
+    <input type="submit" id = "<?php echo $this->get('product')->getId();?>" value="Add quote" />
 </form>
 <div class="reviews">
     <h2>Reviews!</h2>
-    <h3 id = 'valueRating'><?php echo $reviewsAll->getAverageRating()?></h3>
-<?php foreach ($reviewsAll as $_review): ?>
+
+<!--    <h3 id = 'valueRating'>--><?php //echo $reviewsAll->getAverageRating(); ?><!--</h3>-->
+    <?php for ($page = 1; $page <= $this->get('pages')->pageCount; $page++): ?>
+        <a href="/?page=product_view&id=<?php echo $this->get('product')->getId();?>&p=<?php echo $page; ?>"><?php echo $page; ?></a>
+    <?php endfor; ?>
+    <br>
+<?php foreach ($this->get('reviews') as $_review): ?>
 
         <div class="review">
-
             <span>Product_id: </span>
-            <h2 id = 'productID'><?php echo $product->getId() ?></h2>
+            <h2 id = 'productID'><?php echo $this->get('product')->getId() ?></h2>
             <span class="name">Name: </span>
             <h3><?php echo $_review->getName() ?></h3>
             <span class="name">E-mail: </span>

@@ -1,6 +1,6 @@
 <?php
 namespace App\Model\Resource\Table;
-class Customer implements IProductReview
+class Customer implements ITable
 {
     public function getName()
     {

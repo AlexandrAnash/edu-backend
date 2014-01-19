@@ -2,10 +2,9 @@
 namespace App\Model;
 
 
-class CartCollection
+class QuoteCollection
     implements \IteratorAggregate
 {
-    private $_userFilter;
     private $_resource;
 
     public function __construct(Resource\IResourceCollection $resource)
@@ -18,7 +17,7 @@ class CartCollection
 
     }
 
-    public function getItemCarts($userId)
+    public function getItemQuotes($userId)
     {
         $this->_resource->filterBy("customer_id", $userId);
         return $this->_resource->fetch();

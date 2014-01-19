@@ -1,4 +1,6 @@
-<?php foreach ($products as $key => $_product): ?>
+<h1><?php echo $_SESSION['quote_id'] ?></h1>
+<?php foreach ($this->get('items') as $key => $_quote): ?>
+    <?php $_product = $_quote->getProduct() ?>
     <a href="?page=product_view&id=<?php echo $_product->getId(); ?>">
         <div class="products">
             <div>
@@ -22,13 +24,17 @@
     </a>
     <br>
 
-    <label for="count">count: <?php echo $carts[$key]['count'] ?> </label>
-    <form action="?page=cart_delete" method="POST">
+    <label for="count">count: <?php echo $_quote->getQty() ?> </label>
+    <form action="?page=quote_delete" method="POST">
         <label for="count">count: </label>
-        <input type="text" name="cart[count]" >
-        <input type="text" name="cart[product_id]" value="<?php echo $_product->getId()?>" hidden>
+        <input type="text" name="quote[count]" >
+        <input type="text" name="quote[product_id]" value="<?php echo $_product->getId()?>" hidden>
         <input type="submit"  value="Delete" />
     </form>
 
 
+
 <?php endforeach; ?>
+<a href="?page=checkout_address">
+    <input type="submit" value="Checkout" >
+</a>

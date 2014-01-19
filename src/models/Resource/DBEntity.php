@@ -8,7 +8,7 @@ class DBEntity
     private $_table;
     private $_primaryKey;
 
-    public function __construct(\PDO $connection, Table\IProductReview $table)
+    public function __construct(\PDO $connection, Table\ITable $table)
     {
         $this->_connection = $connection;
         $this->_table = $table;
@@ -26,6 +26,7 @@ class DBEntity
     public function save ($data)
     {
         $fields = array_keys($data);
+
         if ($this->_itemExists($data))
         {
             $stmt = $this->_updateItem($fields);
@@ -44,7 +45,12 @@ class DBEntity
         $stmt->execute([':id' => $id]);
     }
 
-    public function _prepareBind($fields)
+    public function getPrimaryKeyField()
+    {
+        return $this->_table->getPrimaryKey();
+    }
+
+    private function _prepareBind($fields)
     {
         return array_map(function ($field) {
             return ":{$field}";
@@ -83,7 +89,6 @@ class DBEntity
         $stmt = $this->_connection->prepare(
             "INSERT INTO {$this->_table->getName()} ({$fieldsList}) VALUES ({$bindsList})"
         );
-
         return $stmt;
     }
 

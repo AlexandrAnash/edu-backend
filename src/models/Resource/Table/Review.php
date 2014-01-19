@@ -3,7 +3,7 @@
 namespace App\Model\Resource\Table;
 
 
-class Review implements IProductReview {
+class Review implements ITable {
     public function getName()
     {
         return 'reviews';

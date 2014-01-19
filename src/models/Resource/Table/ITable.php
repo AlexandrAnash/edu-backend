@@ -1,6 +1,6 @@
 <?php
 namespace App\Model\Resource\Table;
-interface IProductReview
+interface ITable
 {
     public function getName();
 

@@ -14,39 +14,36 @@ use App\Model\Session;
 class CustomerController
 {
     private $_conn;
+    private $_di;
 
-    public function __construct()
+    public function __construct(\Zend\Di\Di $di)
     {
-        try {
-            $this->_conn = new \PDO('mysql:host=localhost;dbname=shop', 'root', '123');
-            $this->_conn->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-        } catch (\PDOException $e) {
-            echo 'ERROR: ' . $e->getMessage();
-        }
+        $this->_di = $di;
     }
 
     public function loginAction()
     {
         if (isset($_POST['customer'])) {
             $login = $this->_loginCustomer();
-            if ($login)
-            {
-                var_dump($login);
-                $customer = new Customer($login);
-                $session = new Session();
+            if ($login) {
+                $customer = $this->_di->get('Customer', ['data' => $login]);
+
+                $session = $this->_di->get('Session');
+
                 $session->login($customer->getId());
-                $session->getName($customer->getName());
-                $session->getRating($customer->getRating());
+                $session->setName($customer->getName());
+                $session->setRating($customer->getRating());
 
                 header("Location: /?page=product_list");
-            } else
-            {
-                $view = 'customer_login';
-                require_once __DIR__ . "/../views/layout/base.phtml";
+            } else {
+                return $this->_di->get('View', [
+                    'template' => 'customer_login'
+                ]);
             }
         } else {
-            $view = 'customer_login';
-            require_once __DIR__ . "/../views/layout/base.phtml";
+            return $this->_di->get('View', [
+                'template' => 'customer_login'
+            ]);
         }
     }
 
@@ -64,23 +61,32 @@ class CustomerController
             $this->_registerCustomer();
             header("Location: /?page=product_list");
         } else {
-            $view = 'customer_register';
-            require_once __DIR__ . "/../views/layout/base.phtml";
+            return $this->_di->get('View', [
+                'template' => 'customer_register'
+            ]);
         }
     }
 
     private function _registerCustomer()
     {
-        $resource = new DBEntity($this->_conn, new CustomerTable);
+        //var_dump($_POST['customer']);
+        //die;
+        //$resource = $this->_di->get('ResourceEntity', ['table' => new CustomerTable]);
         $_POST['customer']['password'] = md5($_POST['customer']['password']);
-        $customer = new Customer($_POST['customer']);
-        $customer->save($resource);
+        $customer = $this->_di->get('Customer', ['data' => $_POST['customer']]);
+        //var_dump($customer);
+        //$customer = new Customer($_POST['customer']);
+        //die;
+        $customer->save();
     }
 
     private function _loginCustomer()
     {
-        $resource = new DBCollection($this->_conn, new CustomerTable);
-        $customers = new CustomerCollection($resource);
+
+
+        $resource = $this->_di->get('ResourceCollection', ['table' => new CustomerTable]);
+        $customers = $this->_di->get('CustomerCollection', ['resource' => $resource]);
+        //$customers = new CustomerCollection($resource);
         $_POST['customer']['password'] = md5($_POST['customer']['password']);
         return $customers->getUser($_POST['customer']);
     }
