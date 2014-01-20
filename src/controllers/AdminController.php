@@ -85,8 +85,6 @@ class AdminController
                     $id_sort = 0;
                 }
                 $orders->sortOrders($orderBy);
-                $_POST['sort'][$key] = 0;
-                var_dump($_POST['sort'][$key]);
             }
         }
         if ($filterKey != "" && $filterValue != "")
@@ -96,6 +94,7 @@ class AdminController
         foreach ($orders->getItems() as $item)
         {
             $order[] = [
+                'order_id'      => $item->getId(),
                 'number_order'  => $item->getNumber(),
                 'created_at'    => $item->getDate(),
                 'grand_total'   => $item->getGrandTotal(),
@@ -109,6 +108,21 @@ class AdminController
             'params' => [
                 'orders' => $order,
                 'id_sort' => $id_sort
+            ]
+        ]);
+    }
+
+    public function editOrderAction()
+    {
+        $order = $this->_di->get('Order');
+
+        $order->load($_GET['id']);
+
+
+        return $this->_di->get('View', [
+            'template' => 'admin_editOrder',
+             'params' => [
+                'orders' => $order,
             ]
         ]);
     }

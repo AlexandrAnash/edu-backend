@@ -1,0 +1,52 @@
+<a class="page-back" href="/">&larr;</a>
+
+<div class="orders" >
+    <h1 class="page-header">
+        Edit order!
+    </h1>
+    <table class="tableOrders">
+        <tr>
+            <form action="?page=admin_orders" method="POST">
+                <select name="filter[key]">
+                    <option value="number_order">Number order</option>
+                    <option value="created_at">Date</option>
+                    <option value="grand_total">Grand total</option>
+                    <option value="status">Status</option>
+                </select>
+                <input type="search" name="filter[value]" placeholder="input filter" >
+                <input type="submit" value="Filter" >
+            </form>
+        </tr>
+        <?php $order = $this->get('orders') ?>
+        <tr>
+            <form name="Email Header" method="post" action="?page=admin_orders">
+                <th>Number order</th>
+                <th>Status</th>
+                <th>Date</th>
+                <th>City</th>
+                <th>Region</th>
+                <th>Postal Code</th>
+                <th>Street</th>
+                <th>Flat</th>
+                <th>Customer name</th>
+                <th>Shipping Method</th>
+                <th>Payment Method</th>
+                <th>Grand total</th>
+            </form>
+        </tr>
+        <tr>
+            <td><?php echo $order->getNumber(); ?></td>
+            <td><?php echo $order->getStatus(); ?></td>
+            <td><?php echo $order->getDate(); ?></td>
+            <td><?php echo $order->getCity(); ?></td>
+            <td><?php echo $order->getRegion(); ?></td>
+            <td><?php echo $order->getPostalCode(); ?></td>
+            <td><?php echo $order->getStreet(); ?></td>
+            <td><?php echo $order->getFlat(); ?></td>
+            <td><?php echo $order->getCustomer(); ?></td>
+            <td><?php echo $order->getShippingMethod(); ?></td>
+            <td><?php echo $order->getPaymentMethod(); ?></td>
+            <td><?php echo $order->getGrandTotal(); ?></td>
+        </tr>
+    </table>
+</div>
