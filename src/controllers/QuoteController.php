@@ -19,7 +19,10 @@ class QuoteController
         $quoteItem = $this->_initQuoteItem();
         $qty = $_POST['quote']['count'];
         $quoteItem->delete($qty);
-        $quoteItem->save();
+        if ($quoteItem->getQty() == 0)
+            $quoteItem->remove();
+        else
+            $quoteItem->save();
         $this->_redirect('quote_list');
     }
 

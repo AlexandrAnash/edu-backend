@@ -8,5 +8,6 @@ interface IResourceCollection
     public function filterBy($column, $value);
     public function Average($column);
     public function limit($limit, $offset = 0);
+    public function sort($orderBy);
     public function count();
 }

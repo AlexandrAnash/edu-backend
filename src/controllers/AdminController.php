@@ -68,10 +68,27 @@ class AdminController
     {
         $resource = $this->_di->get('ResourceCollection', ['table' => new Order()]);
         $orders = $this->_di->get('OrderCollection', ['collection' => $resource]);
-
+        $id_sort = 0;
         $filterKey = isset($_POST['filter']['key']) ? $_POST['filter']['key'] : null;
         $filterValue = isset($_POST['filter']['value']) ? $_POST['filter']['value']  : null;
 
+        if (isset($_POST['sort']))
+        {
+            foreach ($_POST['sort'] as $key => $value) {
+                if ($value == 1) {
+                    $orderBy = $key . ' DESC';
+                    $id_sort = 1;
+
+                }
+                else {
+                    $orderBy = $key . ' ASC';
+                    $id_sort = 0;
+                }
+                $orders->sortOrders($orderBy);
+                $_POST['sort'][$key] = 0;
+                var_dump($_POST['sort'][$key]);
+            }
+        }
         if ($filterKey != "" && $filterValue != "")
             $orders->filterLikeByOrder($filterKey,$filterValue);
         $order = [];
@@ -89,7 +106,10 @@ class AdminController
         //array_multisort($volume, SORT_DESC, $order);
         return $this->_di->get('View', [
             'template' => 'admin_orders',
-            'params' => ['orders' => $order]
+            'params' => [
+                'orders' => $order,
+                'id_sort' => $id_sort
+            ]
         ]);
     }
 

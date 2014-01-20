@@ -18,10 +18,12 @@
             </form>
         </tr>
         <tr>
-            <th>Number order</th>
-            <th>Date</th>
-            <th>Grand total</th>
-            <th>Status</th>
+            <form name="Email Header" method="post" action="?page=admin_orders">
+                <th><button type="submit" name="sort[number_order]" class="button" value="<?php echo 1-$this->get('id_sort') ?>">Number order</button></th>
+                <th><button type="submit" name="sort[created_at]" class="button" value="<?php echo 1-$this->get('id_sort') ?>">Date</button></th>
+                <th><button type="submit" name="sort[grand_total]" class="button" value="<?php echo 1-$this->get('id_sort') ?>">Grand total</button></th>
+                <th><button type="submit" name="sort[status]" class="button" value="<?php echo 1 - $this->get('id_sort') ?>">Status</button></th>
+            </form>
         </tr>
         <?php foreach($this->get('orders') as $order): ?>
         <tr>

@@ -49,4 +49,9 @@ class QuoteItem
     {
         $this->_data['quote_id'] = $quote->getId();
     }
+
+    public function remove()
+    {
+        $this->_resource->remove($this->getId());
+    }
 }

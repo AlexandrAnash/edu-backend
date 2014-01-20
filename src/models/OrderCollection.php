@@ -15,6 +15,11 @@ class OrderCollection
         $this->_prototype = $orderPrototype;
     }
 
+    public function sortOrders($orderBy)
+    {
+        $this->_resource->sort($orderBy);
+    }
+
     public function filterLikeByOrder($column, $value)
     {
         $value ='%' . $value . '%' ;

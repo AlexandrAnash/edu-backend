@@ -43,6 +43,11 @@ class DBCollection
         $this->_filterBy[$column] = $value;
     }
 
+    public function sort($orderBy)
+    {
+        $this->_select->order($orderBy);
+    }
+
     public function filterBy($column, $value)
     {
         $this->_select->where("{$column} = :{$column}");
